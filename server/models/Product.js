@@ -18,7 +18,10 @@ const ProductSchema = new Schema({
         type: String,
         required: 'Please provide a product description'
     },
-    price: {},
+    price: {
+        type: Schema.Types.Decimal128,
+        required: 'Please provide the product price',
+    },
     category: {
         type: String,
         required: 'Please provide a product category'
