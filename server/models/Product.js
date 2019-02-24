@@ -1,17 +1,11 @@
 const { Schema, model } = require('mongoose');
-const slugs = require('slugs');
+const os = require('os');
 
 const ProductSchema = new Schema({
     name: {
         type: String,
         required: 'Please provide a product name',
         trim: true
-    },
-    slug: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        unique: true
     },
     description: {
         type: String,
@@ -28,6 +22,7 @@ const ProductSchema = new Schema({
     image: {
         type: String,
         required: 'Please provide a product image',
+        get: getImage,
     },
     color: {
         type: String,
@@ -35,22 +30,11 @@ const ProductSchema = new Schema({
     }
 });
 
-ProductSchema.pre('save', async function(next) {
-    const product = this;
+function getImage(image) {
+    const { HOST, PORT} = process.env;
+    return `http://${HOST}:${PORT}/${image}`;
+}
 
-    if (!product.isModified('name'))  return next();
-    
-    this.slug = slugs(this.name);
-
-    const slugRegExp = new RegExp(`^(${this.slug})((-[0-9]*?$))$`, 'i');
-
-    const productsWithSlug = await this.constructor.find({ slug: slugRegExp });
-
-    if (productsWithSlug.length) {
-        this.slug = `${this.slug}-${productsWithSlug.length + 1}`;
-    }
-    
-    next();
-});
+ProductSchema.set('toJSON', { getters: true });
 
 module.exports = model('Product', ProductSchema);

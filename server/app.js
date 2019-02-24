@@ -1,5 +1,7 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
+const path = require('path');
 const apiRoutes = require('./routes');
 const ErrorHandler = require('./handlers/ErrorHandler');
 
@@ -10,6 +12,7 @@ app.use(logger('dev'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Register API routes
 app.use('/api/', apiRoutes);
