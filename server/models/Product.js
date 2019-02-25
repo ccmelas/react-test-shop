@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const os = require('os');
 
 const ProductSchema = new Schema({
     name: {

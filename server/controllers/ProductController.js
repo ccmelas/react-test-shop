@@ -13,10 +13,10 @@ class ProductController {
     */
     static async store(req, res) {
         const data = req.body;
-        data.image = `public/uploads/${req.file.filename}`;
+        data.image = `/uploads/${req.file.filename}`;
 
         const product = await Product.create(data);
-        res.json({ message: 'Product created successfully', product });
+        res.json({ message: 'Product created successfully', data: product });
     }
 
     /**
@@ -27,7 +27,7 @@ class ProductController {
     */
     static async index(req, res) {
         const products = await Product.find({}).select('name price image');
-        res.json({ products });
+        res.json({ data: products });
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductController {
 
         if (!product) res.status('404');
         
-        res.json({ product });
+        res.json({ data: product });
     }
 
     /**
