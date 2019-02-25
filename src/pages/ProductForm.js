@@ -51,8 +51,8 @@ class ProductForm extends Component {
                 <StyledForm>
                     <PageTitle text="Add Product" />
                     <form onSubmit={this.createProduct}>
-                        { errors.map((error, i) => <InfoDisplay key={i} text={error}/>) }
-                        { successes.map((success, i) => <InfoDisplay type="success" key={i} text={success}/>) }
+                        { errors.map((error, i) => <InfoDisplay type="error" key={i} text={error}/>) }
+                        { successes.map((success, i) => <InfoDisplay key={i} text={success}/>) }
                         <InputGroup
                             type="text"
                             placeholder="Product Name"
@@ -82,6 +82,7 @@ class ProductForm extends Component {
                         <InputGroup
                             type="file"
                             required="required"
+                            accept="image/*"
                             onChange={this.handleChange('image', true)} />
                         <Button type="submit" loading={loading}>ADD PRODUCT</Button>
                     </form>
@@ -108,7 +109,6 @@ class ProductForm extends Component {
         const response = await makeRequest('/products', 'POST', data, config);
 
         if (!response.errors) {
-            console.log(response);
             this.props.history.push(`/${ response.data.id }`); 
             this.setState({ loading: false, successes: [response.message] });
         } else {
