@@ -12,7 +12,7 @@ const buildError = (error) => {
             break;
         case 422:
             // Invalid Data
-            error.response.data.errors.forEach(error => errors.push(error.msg));
+            error.response.data.errors.forEach(error => errors.push(error));
             break;
         default:
             errors.push('An unknown error occurred');
