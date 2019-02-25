@@ -19,6 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Register API routes
 app.use('/api/', apiRoutes);
 
+// Serve the react application
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'../build/index.html'));
+});
+
 // Registers handler for when routes are not found
 app.use(ErrorHandler.notFound);
 
