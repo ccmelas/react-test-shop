@@ -21,18 +21,12 @@ const ProductSchema = new Schema({
     image: {
         type: String,
         required: 'Please provide a product image',
-        get: getImage,
     },
     color: {
         type: String,
         required: 'Please provide a product color'
     }
 });
-
-function getImage(image) {
-    const { HOST, PORT} = process.env;
-    return `http://${HOST}:${PORT}/${image}`;
-}
 
 ProductSchema.set('toJSON', { getters: true });
 

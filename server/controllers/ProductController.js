@@ -1,4 +1,6 @@
 const Product = require('./../models/Product');
+const { cloudinaryConfig, uploader } = require('./../config/cloudinary');
+const { fileToDataUri } = require('./../utils');
 
 /**
  * Manages products
@@ -13,7 +15,11 @@ class ProductController {
     */
     static async store(req, res) {
         const data = req.body;
-        data.image = `/uploads/${req.file.filename}`;
+        const file = fileToDataUri(req.file).content;
+        
+        cloudinaryConfig();
+        const uploadResult = await uploader.upload(file);
+        data.image = uploadResult.url;
 
         const product = await Product.create(data);
         res.json({ message: 'Product created successfully', data: product });
