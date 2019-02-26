@@ -30,7 +30,7 @@ export class DataProvider extends Component {
     };
 
     fetchData = async props => {
-
+        this.setState({ loading: true });
         const response = await makeRequest(props.url);
         if (!response.errors) {
             this.setState({
@@ -61,7 +61,7 @@ export class DataProvider extends Component {
             <Fragment>
                 {loading && <p>Loading...</p>}
                 {showNoData ? (
-                    <p>Product not found</p>
+                    <p>Data unavailable</p>
                 ) : (
                     this.props.render({
                         data,
