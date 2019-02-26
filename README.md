@@ -15,3 +15,8 @@ Front end `/:id`
 API Endpoint: `POST /api/v1/products`
 Front end `/new`
 Required Fields: name, description, price, color, category, image
+
+# Usage
+
+1. Clone the repo
+2. Run `npm run build && npm run start`
