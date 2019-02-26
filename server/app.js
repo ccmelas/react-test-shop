@@ -1,13 +1,10 @@
 const express = require('express');
-const cors = require('cors');
 const logger = require('morgan');
 const path = require('path');
 const apiRoutes = require('./routes');
 const ErrorHandler = require('./handlers/ErrorHandler');
 
 const app = express();
-
-app.use(cors());
 
 // Set up logging
 app.use(logger('dev'));
