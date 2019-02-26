@@ -18,8 +18,8 @@ class ProductController {
         const file = fileToDataUri(req.file).content;
         
         cloudinaryConfig();
-        const uploadResult = await uploader.upload(file);
-        data.image = uploadResult.url;
+        const uploadResult = await uploader.upload(file, { folder: 'test-react-shop/images'});
+        data.image = uploadResult.secure_url;
 
         const product = await Product.create(data);
         res.json({ message: 'Product created successfully', data: product });
